@@ -6,7 +6,7 @@ artists = config.artists
 
 for artist in artists:
     f = open('lyrics/' + artist, 'rb')
-    words = ''
+    words = '' 
     for sentence in f.readlines():
         this_sentence = sentence.decode('utf-8')
         words += this_sentence

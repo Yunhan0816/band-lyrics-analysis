@@ -21,7 +21,6 @@ def get_lyrics(url):
 f2 = open('urls', 'wb')
 
 for artist in artists:
-    #print(artist)
     a = search(artist, outputfilename, client_access_token)
     urls = map(lambda t: t[3], a)
     print(artist, len(urls))

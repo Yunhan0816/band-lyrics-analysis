@@ -40,10 +40,11 @@ def setup(search_term):
             return outputfilename
 
 def search(search_term,outputfilename,client_access_token):
-    page = 1
+    #page = 1
     #print(search_term)
     with codecs.open(outputfilename, 'ab', encoding='utf8') as outputfile:
         outwriter = csv.writer(outputfile)
+        page = 1
         while True:
             querystring = "http://api.genius.com/search?q=" + urllib.parse.quote(search_term,"") + "&page=" + str(page)
             request = urllib.request.Request(querystring)
