@@ -1,5 +1,6 @@
 import re
-import os, config
+import os
+import config
 
 artists = config.artists
 
@@ -11,11 +12,12 @@ for artist in artists:
         words += this_sentence
     f.close()
 
-    # remove "chorus," "verse," "..."
-    words = re.sub(r'[\(\[].*? [\)\)]', '', words)
+    # remove "chorus," "verse," using re.sub()
+    words = re.sub(r"[\(\(].*? [\)\)]", words)
+    #join the lines
+    words = os.linesep.join([l for l in words.splitlines() if l])
 
-    words = os.linesep.join([s for s in words.splitlines() if s])
-
-    f = open('lyrics/' + artist + '-cleaned', 'wb')
+    # write the cleaned words into file one by one
+    f = open('lyrics/' + artist + '_cleaned', 'wb')
     f.write(words, encode('utf-8'))
     f.close()

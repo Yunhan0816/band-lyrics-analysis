@@ -7,9 +7,12 @@ import codecs
 import os
 import socket
 from socket import AF_INET, SOCK_DGRAM
-
+import urllib.parse
+import urllib.request
+from importlib import reload
+from urllib.parse import quote
 def load_credentials():
-    lines = [line.rstrip('\n') for line in open('credentials.ini')]
+    lines = [line.rstrip('\n') for line in open('credentials.txt')]
     chars_to_strip = " \'\""
     for line in lines:
         if "client_id" in line:
@@ -22,8 +25,8 @@ def load_credentials():
     return client_id, client_secret, client_access_token
 
 def setup(search_term):
-    reload(sys) #dirty (but quick) way to deal with character encoding issues in Python2; if writing for Python3, should remove
-    sys.setdefaultencoding('utf8')
+    #reload(sys) #dirty (but quick) way to deal with character encoding issues in Python2; if writing for Python3, should remove
+    #sys.setdefaultencoding('utf8')
     if not os.path.exists("output/"):
         os.makedirs("output/")
     outputfilename = "output/output-" + re.sub(r"[^A-Za-z]+", '', search_term) + ".csv"
@@ -37,15 +40,15 @@ def setup(search_term):
             return outputfilename
 
 def search(search_term,outputfilename,client_access_token):
+    page = 1
+    #print(search_term)
     with codecs.open(outputfilename, 'ab', encoding='utf8') as outputfile:
         outwriter = csv.writer(outputfile)
-        #Unfortunately, looks like it maxes out at 50 pages (approximately 1,000 results), roughly the same number of results as displayed on web front end
-        page=1
         while True:
-            querystring = "http://api.genius.com/search?q=" + urllib.quote(search_term) + "&page=" + str(page)
+            querystring = "http://api.genius.com/search?q=" + urllib.parse.quote(search_term,"") + "&page=" + str(page)
             request = urllib.request.Request(querystring)
             request.add_header("Authorization", "Bearer " + client_access_token)
-            request.add_header("User-Agent", "curl/7.9.8 (i686-pc-linux-gnu) libcurl 7.9.8 (OpenSSL 0.9.6b) (ipv6 enabled)") #Must include user agent of some sort, otherwise 403 returned
+            request.add_header("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.142 Safari/537.36") #Must include user agent of some sort, otherwise 403 returned
             while True:
                 try:
                     response = urllib.request.urlopen(request, timeout=4) #timeout set to 4 seconds; automatically retries if times out
@@ -82,7 +85,7 @@ def search(search_term,outputfilename,client_access_token):
 
 def main():
     arguments = sys.argv[1:] #so you can input searches from command line if you want
-    search_term = arguments[0].translate(None, "\'\"")
+    search_term = arguments[0].translate(str.maketrans("","", "\'\""))
     outputfilename = setup(search_term)
     client_id, client_secret, client_access_token = load_credentials()
     search(search_term,outputfilename,client_access_token)
