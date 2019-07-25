@@ -1,5 +1,5 @@
 # band-lyrics-analysis
-Sentiment Analysis on My Favorite Bands' Song Lyrics
+Sentiment Analysis on my favorite bands' Song Lyrics
 
 ### Data: Genius.com API
 Use genius.com, a convenient API, to obtain lyrics data
