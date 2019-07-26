@@ -30,7 +30,8 @@ def setup(search_term):
     if not os.path.exists("output/"):
         os.makedirs("output/")
     outputfilename = "output/output-" + re.sub(r"[^A-Za-z]+", '', search_term) + ".csv"
-    with codecs.open(outputfilename, 'ab', encoding='utf8') as outputfile:
+    with codecs.open(outputfilename, 'ab') as outputfile:
+    #with codecs.open(outputfilename, 'ab', encoding='utf8') as outputfile:
         outwriter = csv.writer(outputfile)
         if os.stat(outputfilename).st_size == 0:
             header = ["page","id","title","url","path","header_image_url","annotation_count","pyongs_count","primaryartist_id","primaryartist_name","primaryartist_url","primaryartist_imageurl"]
@@ -42,11 +43,12 @@ def setup(search_term):
 def search(search_term,outputfilename,client_access_token):
     #page = 1
     #print(search_term)
-    with codecs.open(outputfilename, 'ab', encoding='utf8') as outputfile:
+    with codecs.open(outputfilename, 'ab') as outputfile:
+    #with codecs.open(outputfilename, 'ab', encoding='utf8') as outputfile:
         outwriter = csv.writer(outputfile)
         page = 1
         while True:
-            querystring = "http://api.genius.com/search?q=" + urllib.parse.quote(search_term,"") + "&page=" + str(page)
+            querystring = "http://api.genius.com/search?q=" + urllib.parse.quote(search_term) + "&page=" + str(page)
             request = urllib.request.Request(querystring)
             request.add_header("Authorization", "Bearer " + client_access_token)
             request.add_header("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.142 Safari/537.36") #Must include user agent of some sort, otherwise 403 returned
