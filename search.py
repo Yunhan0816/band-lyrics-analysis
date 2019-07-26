@@ -52,7 +52,7 @@ def search(search_term,outputfilename,client_access_token):
             request.add_header("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.142 Safari/537.36") #Must include user agent of some sort, otherwise 403 returned
             while True:
                 try:
-                    response = urllib.request.urlopen(request, timeout=4) #timeout set to 4 seconds; automatically retries if times out
+                    response = urllib.request.urlopen(request, timeout=10) #timeout set to 10 seconds; automatically retries if times out
                     raw = response.read()
                 except socket.timeout:
                     print("Timeout raised and caught")
@@ -68,6 +68,7 @@ def search(search_term,outputfilename,client_access_token):
                 break
             print("page {0}; num hits {1}".format(page, num_hits))
 
+            results = []
             for result in body:
                 result_id = result["result"]["id"]
                 title = result["result"]["title"]
@@ -80,8 +81,11 @@ def search(search_term,outputfilename,client_access_token):
                 primaryartist_name = result["result"]["primary_artist"]["name"]
                 primaryartist_url = result["result"]["primary_artist"]["url"]
                 primaryartist_imageurl = result["result"]["primary_artist"]["image_url"]
-                row=[page,result_id,title,url,path,header_image_url,annotation_count,pyongs_count,primaryartist_id,primaryartist_name,primaryartist_url,primaryartist_imageurl]
+                row=[page,result_id,title.encode('utf-8'),url,path,header_image_url,annotation_count,pyongs_count,primaryartist_id,primaryartist_name,primaryartist_url,primaryartist_imageurl]
+                print row
                 outwriter.writerow(row) #write as CSV
+                results.append(row)
+            return results
             page+=1
 
 def main():
