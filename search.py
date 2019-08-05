@@ -48,12 +48,12 @@ def search(search_term,outputfilename,client_access_token):
     page = 1
     with codecs.open(outputfilename, 'ab', encoding='utf8') as outputfile:
         outwriter = csv.writer(outputfile)
-        while page!= 3 :
+        while page!= 4 :
             querystring = "http://api.genius.com/search?q=" + urllib.parse.quote(search_term,"") + "&page=" + str(page)
             request = urllib.request.Request(querystring)
             request.add_header("Authorization", "Bearer " + client_access_token)
             request.add_header("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.142 Safari/537.36") #Must include user agent of some sort, otherwise 403 returned
-            while page!= 3:
+            while page!= 4:
                 try:
                     response = urllib.request.urlopen(request, timeout=10) #timeout set to 10 seconds; automatically retries if times out
                     raw = response.read()
