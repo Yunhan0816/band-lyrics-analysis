@@ -5,4 +5,4 @@ Sentiment Analysis on my favorite bands' Song Lyrics
 Use genius.com, a convenient API, to obtain lyrics data
 
 ### Analysis: text analysis, sentiment analysis, and word cloud
-coming soon 
+coming soon
