@@ -25,12 +25,13 @@ for artist in artists:
     a = search(artist, outputfilename, client_access_token)
     urls = map(lambda t: t[3], a)
     print(artist, len(list(urls)))
-    f =  open('lyrics/' + artist, 'w+') # write lyrics to folder
+    f =  open('lyrics/' + artist, 'wb') # write lyrics to folder
     f2. write(artist)
     for url in urls:
         lyrics = get_lyrics(url)
         f2.write(url)
         print(url)
-        f.write(lyrics.encode("utf8"))
+        #f.write(lyrics.encode("utf8"))
+        f.write(lyrics)
     f.close()
 f2.close()
