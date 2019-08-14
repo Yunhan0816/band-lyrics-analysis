@@ -10,7 +10,7 @@ artists = config.artists
 client_access_token = "9hWmRE5uhP4A3bAf3rrmvIRuTCJBoJEByP0QMsmpl-jy2SR9K_La-IRvlV1I7mKx"
 
 def get_lyrics(url):
-    request = urllib.request(url)
+    request = urllib.request.Request(url)
     request.add_header("Authorization", "Bearer "+ client_access_token)
     request.add_header("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.142 Safari/537.36")
     page = urllib.request.urlopen(request)
@@ -22,16 +22,28 @@ def get_lyrics(url):
 f2 = open('urls', 'w+')
 
 for artist in artists:
-    a = search(artist, outputfilename, client_access_token)
-    urls = map(lambda t: t[3], a)
-    print(artist, len(list(urls)))
+    a1 = search(artist, outputfilename, client_access_token, 2)
+    urls1 = map(lambda t: t[3], a1)
+    a2 = search(artist, outputfilename, client_access_token, 3)
+    urls2 = map(lambda t: t[3], a2)
+    a3 = search(artist, outputfilename, client_access_token, 4)
+    urls3 = map(lambda t: t[3], a3)
     f =  open('lyrics/' + artist, 'wb') # write lyrics to folder
-    f2. write(artist)
-    for url in urls:
+    f2.write(artist)
+    for url in urls1:
+        print(url)
         lyrics = get_lyrics(url)
         f2.write(url)
+        f.write(lyrics.encode('utf8'))
+    for url in urls2:
         print(url)
-        #f.write(lyrics.encode("utf8"))
-        f.write(lyrics)
+        lyrics = get_lyrics(url)
+        f2.write(url)
+        f.write(lyrics.encode('utf8'))
+    for url in urls3:
+        print(url)
+        lyrics = get_lyrics(url)
+        f2.write(url)
+        f.write(lyrics.encode('utf8'))
     f.close()
 f2.close()
