@@ -1,10 +1,16 @@
-# band-lyrics-analysis
-Sentiment Analysis on my favorite bands' Song Lyrics
+# Band-Lyrics-Analysis
+Sentiment analysis on my favorite bands' song lyrics
 
 ### Data: Genius.com API
-1. Use genius.com, a convenient API, to obtain lyrics data
-2. clean the data
+1. Used genius.com, a convenient API, to obtain lyrics data. I decided to analyze song lyrics by Beach Fossils, Beach House, Diiv, Radiohead, and Wild Nothing. For each artist, collected 30 songs to analyze by connecting genius.com and use BeautifulSoup to do data scraping from the website.
+2. clean the data by removing [chorus], [verse 1], and other unnecessary words
 
 ### Analysis: text analysis, sentiment analysis, and word cloud
-Use wordcloud library in python to generate each artist's wordclouds
-Use NLTK's sentiment analyzer to generate normalized unidimensional metric of sentiment, finding the positivity, negativity, and neutrality of the lyrics by each artist.
+1. Used wordcloud library in python to generate each artist's wordclouds.
+2. Used NLTK's sentiment analyzer to generate normalized unidimensional metric of sentiment, finding the positivity, negativity, and neutrality of the lyrics by each artist, and illustrated the result by plotting the graph.
+
+### Result
+#### Word Cloud
+Beach fossils and Diiv have similar word cloud (partially because Zach from Diiv is a former beach fossils member.) They both like to use "lost," "know," and "feel." Wild Nothing's lyrics tend to talk about "love" and "woman," while Beach House's song lyrics seem more gentle, they use "darling," "take care," and love talking about "night." Radiohead's lyrics are shown to talk a lot about "mess, "truth," "rain," and "broken hearts."
+#### Sentiment Analysis
+Beach Fossils's songs are the most neutral ones comparing to other artists'. Diiv and Radiohead have more negative lyrics than the rest of the artists. Wild Nothing's lyrics are shown to be the most positive ones. 
