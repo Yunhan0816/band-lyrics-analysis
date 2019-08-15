@@ -2,7 +2,7 @@ from wordcloud import WordCloud
 import config
 artists = config.artists
 
-for artist in ['wild nothing']:
+for artist in artists:
     f = open('lyrics/' + artist + '_cleaned', 'rb')
     words = ''
     for sentence in f.readlines():
