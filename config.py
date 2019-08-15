@@ -1,1 +1,1 @@
-artists = ["radiohead", "beach fossils", "beach house", "foals", "wild nothing"]
+artists = ["radiohead", "beach fossils", "beach house", "diiv", "wild nothing"]
