@@ -6,4 +6,5 @@ Sentiment Analysis on my favorite bands' Song Lyrics
 2. clean the data
 
 ### Analysis: text analysis, sentiment analysis, and word cloud
-Use Word Cloud to generate wordcloud library in python for each artist's wordclouds
+Use wordcloud library in python to generate each artist's wordclouds
+Use NLTK's sentiment analyzer to generate normalized unidimensional metric of sentiment, finding the positivity, negativity, and neutrality of the lyrics by each artist.
