@@ -7,7 +7,7 @@ import urllib.request
 
 outputfilename = "lyrics.csv"
 artists = config.artists
-client_access_token = "9hWmRE5uhP4A3bAf3rrmvIRuTCJBoJEByP0QMsmpl-jy2SR9K_La-IRvlV1I7mKx"
+client_access_token = "your client_access_token"
 
 def get_lyrics(url):
     request = urllib.request.Request(url)
