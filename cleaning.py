@@ -13,11 +13,11 @@ for artist in artists:
     f.close()
 
     # remove "chorus," "verse," using re.sub()
-    words = re.sub(r"[\(\(].*? [\)\)]", words)
+    words = re.sub(r'[\(\[].*?[\)\]]', '', words)
     #join the lines
     words = os.linesep.join([l for l in words.splitlines() if l])
 
     # write the cleaned words into file one by one
     f = open('lyrics/' + artist + '_cleaned', 'wb')
-    f.write(words, encode('utf-8'))
+    f.write(words.encode('utf-8'))
     f.close()
